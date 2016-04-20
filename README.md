@@ -1,4 +1,4 @@
-# gulp-browserify2 v0.1.0
+# gulp-browserify2 v0.1.0 (WIP)
 
 > Gulp plugin for browserify
 
