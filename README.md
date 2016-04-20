@@ -12,11 +12,9 @@
 const browserify = require('gulp-browserify2')
 ```
 
-`browserify.src()` works as the stream generator which outputs the files bundled by browserify.
+`browserify.src()` works as the stream start point which outputs the files bundled by browserify.
 
 ```js
-const uglify = require('gulp-uglify')
-
 gulp.task('js', () => {
 
   return browserify.src('src/**/*.js')
