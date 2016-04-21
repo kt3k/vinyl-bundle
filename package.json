@@ -23,6 +23,7 @@
   "homepage": "https://github.com/kt3k/gulp-browserify2#readme",
   "dependencies": {
     "browserify": "^13.0.0",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-fs": "^2.0.0"
   },
   "devDependencies": {
