@@ -1,7 +1,7 @@
 const Transform = require('stream').Transform
 const browserify = require('browserify')
 const vinylFs = require('vinyl-fs')
-const vinylBuffer = require('vinyl-buffer')
+const bl = require('bl')
 
 /**
  * Returns a transform stream which bundles files in the given stream.
@@ -10,23 +10,29 @@ const vinylBuffer = require('vinyl-buffer')
  */
 function through(options) {
 
-  return new Transform({transform: function (file, enc, callback) {
+  return new Transform({objectMode: true, transform: function (file, enc, callback) {
 
     const bundleStream = browserify(file.path, options).bundle()
 
-    bundleStream.on('error', err => { this.emit('error', err) })
+    bundleStream = bundleStream.pipe(bl((err, data) => {
 
-    file.contents = bundleStream
+      if (err) { return callback(err) }
 
-    callback(null, file)
+      file = file.clone()
 
-  }}).pipe(vinylBuffer())
+      file.contents = data
+
+      callback(null, file)
+
+    }))
+
+  }})
 
 }
 
 /**
  * Returns a vinyl stream of the given files which is bundled by browserify.
- * @param {paths} paths The entrypoint paths of bundles
+ * @param {string|string[]} paths The entrypoint paths of bundles
  * @param {object} options The browserify options
  * @return {Stream<Vinyl>}
  */
