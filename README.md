@@ -12,13 +12,26 @@
 const browserify = require('gulp-browserify2')
 ```
 
-`browserify.src()` works as the stream start point which outputs the files bundled by browserify.
+`browserify.src(paths [, opts])` works as the stream start point which outputs the bundled scripts.
 
+Example
 ```js
 gulp.task('js', () => {
 
   return browserify.src('src/**/*.js')
     .pipe(uglify())
+    .pipe(gulp.dest('dest'))
+
+})
+```
+
+The second argument of `browserify.src(paths [, opts])` is passed to (original) `browserify`. See [the document](https://github.com/substack/node-browserify#browserifyfiles--opts) for the available options.
+
+Example
+```js
+gulp.task('js', () => {
+
+  return browserify.src('src/**/*.js', {detectGlobals: false})
     .pipe(gulp.dest('dest'))
 
 })
@@ -54,6 +67,22 @@ gulp.task('js', () => {
 ## Output the sourcemap
 
 Use `debug: true` option and `gulp-sourcemaps` plugin.
+
+```js
+const browserify = require('gulp-browserify2')
+const uglify = require('gulp-uglify')
+const sourcemaps = require('gulp-sourcemaps')
+
+gulp.task('js', () => {
+
+  return browserify.src('src/**/*.js', {debug: true})
+    .pipe(sourcemaps.init({loadMaps: true})
+    .pipe(uglify())
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('dest'))
+
+})
+```
 
 ## Transform through the given stream
 

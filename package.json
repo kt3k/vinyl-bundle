@@ -27,6 +27,8 @@
     "vinyl-fs": "^2.0.0"
   },
   "devDependencies": {
+    "gulp-sourcemaps": "^2.0.0-alpha",
+    "gulp-uglify": "^1.5.3",
     "nyc": "^6.4.0",
     "tape": "^4.5.1",
     "through2": "^2.0.1"
