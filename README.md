@@ -1,18 +1,18 @@
-# gulp-browserify2 v0.1.0 (WIP)
+# browserify-vinyl v0.1.0 (WIP)
 
-> Gulp plugin for browserify
+> Gulp friendly module for browserify
 
 # Install
 
-    npm install --save-dev gulp-browserify2
+    npm install --save-dev browserify-vinyl
 
 # Usage
 
 ```js
-const browserify = require('gulp-browserify2')
+const browserify = require('browserify-vinyl')
 ```
 
-`browserify.src(paths [, opts])` works as the stream start point which outputs the bundled scripts.
+`browserify.src(paths [, browserifyOpts[, vinylOpts]])` works as the stream start point which outputs the bundled scripts.
 
 Example
 ```js
@@ -25,7 +25,7 @@ gulp.task('js', () => {
 })
 ```
 
-The second argument of `browserify.src(paths [, opts])` is passed to (original) `browserify`. See [the document](https://github.com/substack/node-browserify#browserifyfiles--opts) for the available options.
+The second argument of `browserify.src(paths [, browserifyOpts [, vinylOpts]])` is passed to (original) `browserify`. See [the document](https://github.com/substack/node-browserify#browserifyfiles--opts) for the available options.
 
 Example
 ```js
@@ -36,6 +36,17 @@ gulp.task('js', () => {
 
 })
 ```
+
+The third argument of `browserify.src(paths, [, browserifyOpts [, vinylOpts]])` is passed to [vinyl-fs](https://github.com/gulpjs/vinyl-fs).src. See [the document](https://github.com/gulpjs/vinyl-fs#options) for the available options.
+
+Example
+```js
+gulp.task('js', () => {
+
+  return browserify.src('src/pages/*.js', {detectGlobals: false}, {base: 'src/'})
+    .pipe(gulp.dest('dest'))
+
+})
 
 # Recipes
 
@@ -66,10 +77,10 @@ gulp.task('js', () => {
 
 ## Output the sourcemap
 
-Use `debug: true` option and `gulp-sourcemaps` plugin.
+Use `debug: true` _browserify_ option and `gulp-sourcemaps` plugin.
 
 ```js
-const browserify = require('gulp-browserify2')
+const browserify = require('browserify-vinyl')
 const uglify = require('gulp-uglify')
 const sourcemaps = require('gulp-sourcemaps')
 
@@ -86,7 +97,7 @@ gulp.task('js', () => {
 
 ## Transform through the given stream
 
-Use `browserify.through(options)` method.
+Use `passthrough: true` _vinyl-fs_ option.
 
 ```js
 gulp.task('js', () => {
@@ -95,7 +106,7 @@ gulp.task('js', () => {
 
     .pipe(...someTransform()...)
 
-    .pipe(browserify.through({transform: ...}))
+    .pipe(browserify.src({transform: 'browserify-istanbul'}, {passthrough: true}))
     .pipe(gulp.dest('dest'))
 
 })
@@ -104,21 +115,24 @@ gulp.task('js', () => {
 # API reference
 
 ```js
-const browserify = require('gulp-browserify2')
+const browserify = require('browserify-vinyl')
 ```
 
-## browserify.src(paths, options)
+## browserify.src(paths, [, browserifyOpts [, vinylOpts]])
 
 - @param {string} paths The glob patterns of the paths to build
-- @param {object} options The browserify options
+- @param {object} browserifyOpts The _browserify_ options
+- @param {object} vinylOpts The _vinyl-fs_ options
 
 Creates a vinyl stream from the given glob patterns and browserify options.
 Each path in the glob patterns is considered as the entry point of the bundle.
 The outputs of the stream are bundled scripts.
 
-## browserify.through(options)
+## browserify.src([paths [, browserifyOpts [, {paththrough: true,  ...vinylOpts}}]]])
 
-- @param {object} options The browserify options
+- @param {string} paths The glob patterns of the paths to build
+- @param {object} browserifyOpts The _browserify_ options
+- @param {object} vinylOpts The _vinyl-fs_ options
 
 This returns a transform stream which transform the script in it.
 Each script in the stream is considered as the entry point of the bundle.
@@ -126,7 +140,7 @@ The outputs of the stream are bundled scripts.
 
 # Note
 
-- This plugin only supports node.js >= v4.
+- This module supports node.js >= 0.10.
 
 # License
 

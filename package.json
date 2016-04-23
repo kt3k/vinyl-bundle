@@ -1,14 +1,14 @@
 {
-  "name": "gulp-browserify2",
+  "name": "browserify-vinyl",
   "version": "0.1.0",
-  "description": "Gulp plugin of browserify",
+  "description": "Gulp friendly module for browserify",
   "main": "index.js",
   "scripts": {
     "test": "tape test/test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kt3k/gulp-browserify2.git"
+    "url": "git+https://github.com/kt3k/browserify-vinyl.git"
   },
   "keywords": [
     "gulpplugin",
@@ -18,12 +18,14 @@
   "author": "Yoshiya Hinosawa <stibium121@gmail.com> (https://twitter.com/kt3k)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kt3k/gulp-browserify2/issues"
+    "url": "https://github.com/kt3k/browserify-vinyl/issues"
   },
-  "homepage": "https://github.com/kt3k/gulp-browserify2#readme",
+  "homepage": "https://github.com/kt3k/browserify-vinyl#readme",
   "dependencies": {
     "bl": "^1.1.2",
     "browserify": "^13.0.0",
+    "object-assign": "^4.0.1",
+    "through2": "^2.0.1",
     "vinyl-fs": "^2.0.0"
   },
   "devDependencies": {
