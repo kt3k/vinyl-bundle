@@ -56,9 +56,12 @@ test('browserify.src(paths, browserifyOpts, {passthrough: true, ...vinylOpts}) w
   vfs.src(fixtureRoot + '/foo.js')
     .pipe(browserify.src(fixtureRoot + '/ham.js', {debug: true}, {passthrough: true}))
     .pipe(through2.obj(function (file, enc, callback) {
+
       result[path.basename(file.path)] = file.contents.toString()
       callback(null, file)
-    }, function () {
+
+    })).on('finish', function () {
+
       t.equal(Object.keys(result).length, 2)
 
       t.ok(/This is foo\.js/.test(result['foo.js']))
@@ -67,7 +70,7 @@ test('browserify.src(paths, browserifyOpts, {passthrough: true, ...vinylOpts}) w
       t.ok(/This is bar\/baz\.js/.test(result['ham.js']))
 
       t.end()
-    }))
+    })
 })
 
 test('works with uglify', function (t) {
