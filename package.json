@@ -11,8 +11,9 @@
     "url": "git+https://github.com/kt3k/browserify-vinyl.git"
   },
   "keywords": [
-    "gulpplugin",
+    "gulpfriendly",
     "gulp",
+    "vinyl",
     "browserify"
   ],
   "author": "Yoshiya Hinosawa <stibium121@gmail.com> (https://twitter.com/kt3k)",
