@@ -40,21 +40,29 @@ function through(options) {
  */
 function src(paths, browserifyOpts, vinylOpts) {
 
-  if (typeof paths === 'object' && typeof browserify === 'object' && vinylOpts == null) {
+  if (typeof paths === 'object' && typeof browserifyOpts === 'object' && vinylOpts == null) {
+
     // The signature is considered as `src(browserifyOpts, vinylOpts)`
     vinylOpts = browserifyOpts
     browserifyOpts = paths
     paths = null
+
   }
 
   if (paths == null && vinylOpts.passthrough) {
-    // The special case: it performs only browserify transform
-    return through(browserifyOpts)
+
+    // The special case:
+    // `passthrough` is true and glob pattern is empty,
+    // doesn't need to source files and just performs browserify transform
+    src = through2.obj()
+
+  } else {
+
+    src = vinylFs.src(paths, assign({read: false}, vinylOpts))
+
   }
 
-  vinylOpts = assign({read: false}, vinylOpts)
-
-  return vinylFs.src(paths, vinylOpts).pipe(through(browserifyOpts))
+  return src.pipe(through(browserifyOpts))
 
 }
 
