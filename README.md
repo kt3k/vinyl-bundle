@@ -1,4 +1,4 @@
-# browserify-vinyl v0.1.0 (WIP)
+# browserify-vinyl v0.2.0 (WIP)
 
 > Gulp friendly module for browserify
 
