@@ -12,7 +12,7 @@
 const browserify = require('browserify-vinyl')
 ```
 
-`browserify.src(paths [, browserifyOpts[, vinylOpts]])` works as the stream start point which outputs the bundled scripts.
+`browserify.src(paths[, browserifyOpts[, vinylOpts]])` works as the stream start point which outputs the bundled scripts.
 
 Example
 ```js
@@ -25,7 +25,7 @@ gulp.task('js', () => {
 })
 ```
 
-The second argument of `browserify.src(paths [, browserifyOpts [, vinylOpts]])` is passed to (original) `browserify`. See [the document](https://github.com/substack/node-browserify#browserifyfiles--opts) for the available options.
+The second argument of `browserify.src(paths[, browserifyOpts[, vinylOpts]])` is passed to (original) `browserify`. See [the document](https://github.com/substack/node-browserify#browserifyfiles--opts) for the available options.
 
 Example
 ```js
@@ -37,7 +37,7 @@ gulp.task('js', () => {
 })
 ```
 
-The third argument of `browserify.src(paths, [, browserifyOpts [, vinylOpts]])` is passed to [vinyl-fs](https://github.com/gulpjs/vinyl-fs).src. See [the document](https://github.com/gulpjs/vinyl-fs#options) for the available options.
+The third argument of `browserify.src(paths[, browserifyOpts[, vinylOpts]])` is passed to `vinyl-fs.src`. See [the document](https://github.com/gulpjs/vinyl-fs#options) for the available options.
 
 Example
 ```js
@@ -47,6 +47,7 @@ gulp.task('js', () => {
     .pipe(gulp.dest('dest'))
 
 })
+```
 
 # Recipes
 
@@ -118,9 +119,9 @@ gulp.task('js', () => {
 const browserify = require('browserify-vinyl')
 ```
 
-## browserify.src(paths, [, browserifyOpts [, vinylOpts]])
+## browserify.src(paths[, browserifyOpts[, vinylOpts]])
 
-- @param {string} paths The glob patterns of the paths to build
+- @param {string|string[]} paths The glob patterns of the paths to build
 - @param {object} browserifyOpts The _browserify_ options
 - @param {object} vinylOpts The _vinyl-fs_ options
 
@@ -128,13 +129,13 @@ Creates a vinyl stream from the given glob patterns and browserify options.
 Each path in the glob patterns is considered as the entry point of the bundle.
 The outputs of the stream are bundled scripts.
 
-## browserify.src([paths [, browserifyOpts [, {paththrough: true,  ...vinylOpts}}]]])
+## browserify.src([paths, ]browserifyOpts, {passthrough: true[, ...vinylOpts]})
 
-- @param {string} paths The glob patterns of the paths to build
+- @param {string|string[]} paths The glob patterns of the paths to build, optional
 - @param {object} browserifyOpts The _browserify_ options
 - @param {object} vinylOpts The _vinyl-fs_ options
 
-This returns a transform stream which transform the script in it.
+This returns a transform stream which transform the script in it and adds entries from the given paths if exists.
 Each script in the stream is considered as the entry point of the bundle.
 The outputs of the stream are bundled scripts.
 
