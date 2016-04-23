@@ -1,7 +1,8 @@
-const Transform = require('stream').Transform
-const browserify = require('browserify')
-const vinylFs = require('vinyl-fs')
-const bl = require('bl')
+var assign = require('object-assign')
+var through2 = require('through2')
+var browserify = require('browserify')
+var vinylFs = require('vinyl-fs')
+var bl = require('bl')
 
 /**
  * Returns a transform stream which bundles files in the given stream.
@@ -10,11 +11,11 @@ const bl = require('bl')
  */
 function through(options) {
 
-  return new Transform({objectMode: true, transform: function (file, enc, callback) {
+  return through2.obj(function (file, enc, callback) {
 
-    const bundleStream = browserify(file.path, options).bundle()
+    var bundleStream = browserify(file.path, options).bundle()
 
-    bundleStream = bundleStream.pipe(bl((err, data) => {
+    bundleStream = bundleStream.pipe(bl(function (err, data) {
 
       if (err) { return callback(err) }
 
@@ -26,19 +27,35 @@ function through(options) {
 
     }))
 
-  }})
+  })
 
 }
 
 /**
  * Returns a vinyl stream of the given files which is bundled by browserify.
  * @param {string|string[]} paths The entrypoint paths of bundles
- * @param {object} options The browserify options
+ * @param {object} browserifyOpts The browserify options
+ * @param {object} vinylOpts The vinyl-fs options
  * @return {Stream<Vinyl>}
  */
-function src(paths, options) {
-  return vinylFs.src(paths, {read: false}).pipe(through(options))
+function src(paths, browserifyOpts, vinylOpts) {
+
+  if (typeof paths === 'object' && typeof browserify === 'object' && vinylOpts == null) {
+    // The signature is considered as `src(browserifyOpts, vinylOpts)`
+    vinylOpts = browserifyOpts
+    browserifyOpts = paths
+    paths = null
+  }
+
+  if (paths == null && vinylOpts.passthrough) {
+    // The special case: it performs only browserify transform
+    return through(browserifyOpts)
+  }
+
+  vinylOpts = assign({read: false}, vinylOpts)
+
+  return vinylFs.src(paths, vinylOpts).pipe(through(browserifyOpts))
+
 }
 
 module.exports.src = src
-module.exports.through = through
