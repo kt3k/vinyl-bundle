@@ -60,7 +60,8 @@ function createSourceStream(paths, options) {
  * @param {string|string[]} paths The entrypoint paths of bundles
  * @param {object} [options] The options
  * @return {Readable<Vinyl>} when passthrough: false
- * @return {Transform<Vinyl, Vinyl>} when passthrough: true
+ * @return {Duplex<Vinyl, Vinyl>} when paths != null and passthrough: true
+ * @return {Transform<Vinyl, Vinyl>} when paths == null and passthrough: true
  */
 function src(paths, options) {
 
@@ -76,15 +77,16 @@ function src(paths, options) {
 
   if (options.passthrough === true) {
 
-    var passInput = through2.obj()
-    var passOutput = passInput
+    // when paths=null and passthrough=true, returns a Transform stream
+    if (paths == null) {
 
-    // in case of passthrough=true, empty paths means no additional source in this trasnform
-    if (paths != null) {
-
-      passOutput = merge(passOutput, createSourceStream(paths, options))
+      return bundleThrough(options)
 
     }
+
+    var passInput = through2.obj()
+
+    var passOutput = merge(passInput, createSourceStream(paths, options))
 
     return duplexify.obj(passInput, passOutput.pipe(bundleThrough(options)))
 

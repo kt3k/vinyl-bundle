@@ -128,7 +128,8 @@ The outputs of the stream are bundled scripts.
 - @param {string|string[]} paths The glob patterns of the paths to build, optional
 - @param {object} options The options (this is passed to both `browserify` and `glob-stream`)
 
-If you set passthrough option `true`, then this returns a transform stream which transform the script in it and adds entries from the given paths if exists.
+If you set passthrough option `true`, then this returns a duplex stream which bundles the files in the incoming stream and adds entries from the given paths if exists.
+If you set passthrough option `true` and paths null, then this returns a transform stream which bundles the files in the incoming stream.
 Each script in the stream is considered as the entry point of the bundle.
 The outputs of the stream are bundled scripts.
 
