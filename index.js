@@ -1,5 +1,4 @@
 var assign = require('object-assign')
-var bl = require('bl')
 var browserify = require('browserify')
 var duplexify = require('duplexify')
 var gs = require('glob-stream')
@@ -17,9 +16,7 @@ function bundleThrough(options) {
 
   return through2.obj(function (file, enc, callback) {
 
-    var bundleStream = browserify(file.path, options).bundle()
-
-    bundleStream = bundleStream.pipe(bl(function (err, data) {
+    browserify(file.path, options).bundle(function (err, data) {
 
       if (err) { return callback(err) }
 
@@ -29,7 +26,7 @@ function bundleThrough(options) {
 
       callback(null, file)
 
-    }))
+    })
 
   })
 
