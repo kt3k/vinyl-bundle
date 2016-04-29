@@ -20,7 +20,7 @@ module.exports.src = src
  */
 function src(paths, options) {
 
-  if (typeof paths === 'object' && options == null) {
+  if (pathsSeemOptions(paths) && options == null) {
 
     // The signature is considered as `src(options)`
     options = paths
@@ -51,4 +51,13 @@ function src(paths, options) {
 
   }
 
+}
+
+/**
+ * Returns true if paths seems like the options (object type).
+ * @param {Object} paths The paths
+ * @return {boolean}
+ */
+function pathsSeemOptions(paths) {
+  return typeof paths === 'object' && !Array.isArray(paths)
 }

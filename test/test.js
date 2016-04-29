@@ -25,6 +25,16 @@ test('browserify.src() creates vinyl stream of bundled scripts', function (t) {
 
 })
 
+test('browserify.src() throws when the given paths are invalid', function (t) {
+  t.doesNotThrow(function () { browserify.src('./src/**/*.js') }, './src/**/*.js is valid')
+  t.doesNotThrow(function () { browserify.src(['./src/**/*.js']) }, '["./src/**/*.js"] is valid')
+  t.throws(function () { browserify.src(null) }, 'null is invalid')
+  t.throws(function () { browserify.src('') }, 'an empty string is invalid')
+  t.throws(function () { browserify.src([]) }, 'an empty array is invalid')
+
+  t.end()
+})
+
 test('browserify.src() emits error when unable to bundle script', function (t) {
   browserify.src(fixtureRoot + '/error.js').on('error', function (err) {
     t.ok(err instanceof Error, 'It emits error instance')
