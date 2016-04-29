@@ -31,7 +31,6 @@
     "is-valid-glob": "^0.3.0",
     "merge-stream": "^1.0.0",
     "object-assign": "^4.0.1",
-    "through2": "^2.0.1",
     "vinyl": "^1.1.1"
   },
   "devDependencies": {
@@ -39,6 +38,7 @@
     "gulp-uglify": "^1.5.3",
     "nyc": "^6.4.0",
     "tape": "^4.5.1",
+    "through2": "^2.0.1",
     "vinyl-fs": "^2.4.3"
   }
 }

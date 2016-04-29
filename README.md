@@ -116,7 +116,7 @@ const bundle = require('vinyl-bundle')
 - @param {string|string[]} paths The glob patterns of the paths to build
 - @param {object} [options] The options (this is passed to both `browserify` and `glob-stream`)
 - @param {boolean} [options.passthrough] if set true, then this stream works as transform stream. You can use this in the middle of a pipeline.
-- @param {boolean} [options.globStreamDebug] if set true, then the `glob-stream.create` works in debug mode and you can see the messages.
+- @param {boolean} [options.debugGlobStream] if set true, then the `glob-stream.create` works in debug mode and you can see the additional messages.
 - The options is directly passed to `browserify` and `glob-stream.create`. please see their documents for the rest of the available options. ([browserify](https://github.com/substack/node-browserify#browserifyfiles--opts), [glob-stream](https://github.com/gulpjs/glob-stream#options))
 
 Creates a vinyl stream from the given glob patterns and options.
