@@ -1,37 +1,37 @@
-# browserify-vinyl v0.3.0 (WIP)
+# vinyl-bundle v0.3.0 (WIP)
 
-> Gulp friendly module for browserify
+> A gulp friendly module which creates a bundled vinyl stream
 
 # Install
 
-    npm install --save-dev browserify-vinyl
+    npm install --save-dev vinyl-bundle
 
 # Usage
 
 ```js
-const browserify = require('browserify-vinyl')
+const bundle = require('vinyl-bundle')
 ```
 
-`browserify.src(paths[, options])` works as the stream start point which outputs the bundled scripts.
+`bundle.src(paths[, options])` works as a stream start point which outputs the bundled scripts using `browserify`.
 
 Example
 ```js
 gulp.task('js', () => {
 
-  return browserify.src('src/**/*.js')
+  return bundle.src('src/**/*.js')
     .pipe(uglify())
     .pipe(gulp.dest('dest'))
 
 })
 ```
 
-The second argument of `browserify.src(paths[, options])` is passed to (original) `browserify` and `glob-stream.src`. See the documents ([browserify](https://github.com/substack/node-browserify#browserifyfiles--opts), [glob-stream](https://github.com/gulpjs/glob-stream#options)) for the available options.
+The second argument of `bundle.src(paths[, options])` is passed to (original) `browserify` and `glob-stream.src`. See the documents ([browserify](https://github.com/substack/node-browserify#browserifyfiles--opts), [glob-stream](https://github.com/gulpjs/glob-stream#options)) for the available options.
 
 Example
 ```js
 gulp.task('js', () => {
 
-  return browserify.src('src/pages/*.js', {detectGlobals: false, base: 'src/'})
+  return bundle.src('src/pages/*.js', {detectGlobals: false, base: 'src/'})
     .pipe(gulp.dest('dest'))
 
 })
@@ -51,7 +51,7 @@ gulpfile.js
 ```js
 gulp.task('js', () => {
 
-  return browserify.src('src/**/*', {transform: 'babelify'})
+  return bundle.src('src/**/*', {transform: 'babelify'})
     .pipe(gulp.dest('dest'))
 
 })
@@ -73,13 +73,13 @@ gulp.task('js', () => {
 Use `debug: true` option and `gulp-sourcemaps` plugin.
 
 ```js
-const browserify = require('browserify-vinyl')
+const bundle = require('vinyl-bundle')
 const uglify = require('gulp-uglify')
 const sourcemaps = require('gulp-sourcemaps')
 
 gulp.task('js', () => {
 
-  return browserify.src('src/**/*.js', {debug: true})
+  return bundle.src('src/**/*.js', {debug: true})
     .pipe(sourcemaps.init({loadMaps: true})
     .pipe(uglify())
     .pipe(sourcemaps.write('./'))
@@ -99,7 +99,7 @@ gulp.task('js', () => {
 
     .pipe(...someTransform()...)
 
-    .pipe(browserify.src(null, {transform: 'browserify-istanbul', passthrough: true}))
+    .pipe(bundle.src(null, {transform: 'browserify-istanbul', passthrough: true}))
     .pipe(gulp.dest('dest'))
 
 })
@@ -108,10 +108,10 @@ gulp.task('js', () => {
 # API reference
 
 ```js
-const browserify = require('browserify-vinyl')
+const bundle = require('vinyl-bundle')
 ```
 
-## browserify.src(paths[, options])
+## bundle.src(paths[, options])
 
 - @param {string|string[]} paths The glob patterns of the paths to build
 - @param {object} [options] The options (this is passed to both `browserify` and `glob-stream`)
@@ -123,7 +123,7 @@ Creates a vinyl stream from the given glob patterns and options.
 Each path in the glob patterns is considered as the entry point of the bundle.
 The outputs of the stream are bundled scripts.
 
-## browserify.src([paths, ]{passthrough: true[, ...options]})
+## bundle.src([paths, ]{passthrough: true[, ...options]})
 
 - @param {string|string[]} paths The glob patterns of the paths to build, optional
 - @param {object} options The options (this is passed to both `browserify` and `glob-stream`)

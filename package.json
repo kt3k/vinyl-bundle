@@ -1,27 +1,28 @@
 {
-  "name": "browserify-vinyl",
+  "name": "vinyl-bundle",
   "version": "0.3.0",
-  "description": "Gulp friendly module for browserify",
+  "description": "A gulp friendly module which creates a bundled vinyl stream",
   "main": "index.js",
   "scripts": {
     "test": "tape test/test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kt3k/browserify-vinyl.git"
+    "url": "git+https://github.com/kt3k/vinyl-bundle.git"
   },
   "keywords": [
     "gulpfriendly",
     "gulp",
     "vinyl",
-    "browserify"
+    "browserify",
+    "bundle"
   ],
   "author": "Yoshiya Hinosawa <stibium121@gmail.com> (https://twitter.com/kt3k)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kt3k/browserify-vinyl/issues"
+    "url": "https://github.com/kt3k/vinyl-bundle/issues"
   },
-  "homepage": "https://github.com/kt3k/browserify-vinyl#readme",
+  "homepage": "https://github.com/kt3k/vinyl-bundle#readme",
   "dependencies": {
     "browserify": "^13.0.0",
     "duplexify": "^3.4.3",
