@@ -1,2 +1,3 @@
+var a = require('does/not/exist')
 
-var a = req ire('bar/baz')
+a()

@@ -4,6 +4,7 @@
   "description": "A gulp friendly module which creates a bundled vinyl stream",
   "main": "index.js",
   "scripts": {
+    "lint": "souffle -2",
     "test": "tape test/test.js",
     "cov": "nyc --reporter=lcov npm test",
     "codecov": "npm run cov && codecov < coverage/lcov.info"
@@ -40,6 +41,7 @@
     "codecov.io": "^0.1.6",
     "gulp-uglify": "^1.5.3",
     "nyc": "^6.4.0",
+    "souffle-cli": "^3.1.0",
     "tape": "^4.5.1",
     "through2": "^2.0.1",
     "vinyl-fs": "^2.4.3"
