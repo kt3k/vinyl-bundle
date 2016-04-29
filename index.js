@@ -12,6 +12,7 @@ module.exports.src = src
  * @param {string|string[]} paths The entrypoint paths of bundles
  * @param {object} [options] The options
  * @param {boolean} [options.buffer] True iff you want to make file.contents `Buffer` type. Default `true`. `false` makes `file.contents` Stream type.
+ * @param {boolean} [options.sourcemaps] `true` iff you want files to have sourcemaps enabled.
  * @param {boolean} [options.debugGlobStream] True iff you want to debug the glob-stream. default false.
  * @return {Readable<Vinyl>} when passthrough: false
  * @return {Duplex<Vinyl, Vinyl>} when paths != null and passthrough: true

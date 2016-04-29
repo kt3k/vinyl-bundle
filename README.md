@@ -115,23 +115,15 @@ const bundle = require('vinyl-bundle')
 
 - @param {string|string[]} paths The glob patterns of the paths to build
 - @param {object} [options] The options (this is passed to both `browserify` and `glob-stream`)
-- @param {boolean} [options.passthrough] if set true, then this stream works as transform stream. You can use this in the middle of a pipeline.
-- @param {boolean} [options.buffer] True iff you want to make file.contents `Buffer` type. Default `true`. `false` makes `file.contents` Stream type.
+- @param {boolean} [options.buffer] `true` iff you want to make file.contents `Buffer` type. Default `true`. `false` makes `file.contents` Stream type.
+- @param {boolean} [options.sourcemaps] `true` iff you want files to have sourcemaps enabled.
 - @param {boolean} [options.debugGlobStream] if set true, then the `glob-stream.create` works in debug mode and you can see the additional messages.
-- The options is directly passed to `browserify` and `glob-stream.create`. please see their documents for the rest of the available options. ([browserify](https://github.com/substack/node-browserify#browserifyfiles--opts), [glob-stream](https://github.com/gulpjs/glob-stream#options))
+- @param {boolean} [options.passthrough] if set true, then this stream works as a duplex stream and input files are bundled. You can use this in the middle of a pipeline. In case you pass paths as null, then this works as a transform stream.
+- The options is directly passed to `browserify` and `glob-stream.create`. Please see their documents for the rest of the available options. ([browserify](https://github.com/substack/node-browserify#browserifyfiles--opts), [glob-stream](https://github.com/gulpjs/glob-stream#options))
+- @return {stream.Readable<Vinyl>}
 
 Creates a vinyl stream from the given glob patterns and options.
 Each path in the glob patterns is considered as the entry point of the bundle.
-The outputs of the stream are bundled scripts.
-
-## bundle.src([paths, ]{passthrough: true[, ...options]})
-
-- @param {string|string[]} paths The glob patterns of the paths to build, optional
-- @param {object} options The options (this is passed to both `browserify` and `glob-stream`)
-
-If you set passthrough option `true`, then this returns a duplex stream which bundles the files in the incoming stream and adds entries from the given paths if exists.
-If you set passthrough option `true` and paths null, then this returns a transform stream which bundles the files in the incoming stream.
-Each script in the stream is considered as the entry point of the bundle.
 The outputs of the stream are bundled scripts.
 
 # Note

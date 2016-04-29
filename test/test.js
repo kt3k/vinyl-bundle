@@ -73,7 +73,7 @@ test('browserify.src(paths, {passthrough: true, ...options}) works as transform 
     })
 })
 
-test('when buffer options is false, file.contents is a stream', function (t) {
+test('when buffer option is false, file.contents is a stream', function (t) {
 
   browserify.src(fixtureRoot + '/foo.js', {buffer: false}).pipe(through2.obj(function (file, enc, callback) {
 
@@ -82,6 +82,26 @@ test('when buffer options is false, file.contents is a stream', function (t) {
 
   }))
 
+})
+
+test('when sourcemaps option is true, the output has sourcemaps', function (t) {
+  browserify
+    .src(fixtureRoot + '/foo.js', {sourcemaps: true})
+    .pipe(uglify())
+    .pipe(sourcemaps.write())
+    .pipe(through2.obj(function (file, enc, callback) {
+
+      t.ok(file.isBuffer(), 'The file is buffer type')
+
+      var contents = file.contents.toString()
+
+      t.ok(/This is foo\.js/.test(contents), 'The file contains foo.js')
+      t.ok(/This is bar\/baz\.js/.test(contents), 'The file contains bar/baz/js')
+      t.ok(/sourceMappingURL=/.test(contents), 'The file contains source maps')
+
+      t.end()
+
+    }))
 })
 
 test('works with uglify', function (t) {
