@@ -73,6 +73,17 @@ test('browserify.src(paths, {passthrough: true, ...options}) works as transform 
     })
 })
 
+test('when buffer options is false, file.contents is a stream', function (t) {
+
+  browserify.src(fixtureRoot + '/foo.js', {buffer: false}).pipe(through2.obj(function (file, enc, callback) {
+
+    t.ok(file.isStream(), 'The file is stream type')
+    t.end()
+
+  }))
+
+})
+
 test('works with uglify', function (t) {
 
   browserify.src(fixtureRoot + '/foo.js').pipe(uglify()).pipe(through2.obj(function (file, enc, callback) {

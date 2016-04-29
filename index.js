@@ -1,14 +1,17 @@
-var duplexify = require('duplexify')
-var merge = require('merge-stream')
-
 var through = require('./lib/through-obj')
 var bundleThrough = require('./lib/bundle-through')
 var createSourceStream = require('./lib/create-source-stream')
+
+var duplexify = require('duplexify')
+var merge = require('merge-stream')
+
+module.exports.src = src
 
 /**
  * Returns a vinyl stream of the given files which is bundled by browserify.
  * @param {string|string[]} paths The entrypoint paths of bundles
  * @param {object} [options] The options
+ * @param {boolean} [options.buffer] True iff you want to make file.contents `Buffer` type. Default `true`. `false` makes `file.contents` Stream type.
  * @param {boolean} [options.debugGlobStream] True iff you want to debug the glob-stream. default false.
  * @return {Readable<Vinyl>} when passthrough: false
  * @return {Duplex<Vinyl, Vinyl>} when paths != null and passthrough: true
@@ -48,5 +51,3 @@ function src(paths, options) {
   }
 
 }
-
-module.exports.src = src
