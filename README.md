@@ -1,4 +1,4 @@
-# vinyl-bundle v0.3.0 (WIP) [![Circle CI](https://circleci.com/gh/kt3k/vinyl-bundle.svg?style=svg)](https://circleci.com/gh/kt3k/vinyl-bundle) [![codecov](https://codecov.io/gh/kt3k/vinyl-bundle/branch/master/graph/badge.svg)](https://codecov.io/gh/kt3k/vinyl-bundle)
+# vinyl-bundle v0.4.0 (WIP) [![Circle CI](https://circleci.com/gh/kt3k/vinyl-bundle.svg?style=svg)](https://circleci.com/gh/kt3k/vinyl-bundle) [![codecov](https://codecov.io/gh/kt3k/vinyl-bundle/branch/master/graph/badge.svg)](https://codecov.io/gh/kt3k/vinyl-bundle)
 
 
 > A gulp friendly module which creates a bundled vinyl stream

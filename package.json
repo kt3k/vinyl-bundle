@@ -1,6 +1,6 @@
 {
   "name": "vinyl-bundle",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A gulp friendly module which creates a bundled vinyl stream",
   "main": "index.js",
   "scripts": {
