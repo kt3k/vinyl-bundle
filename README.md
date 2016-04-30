@@ -116,10 +116,13 @@ const bundle = require('vinyl-bundle')
 
 - @param {string|string[]} paths The glob patterns of the paths to build
 - @param {object} [options] The options (this is passed to both `browserify` and `glob-stream`)
+- @param {string} [options.cwd] The working directory the folder is relative to. Default is `process.cwd()`.
+- @param {string} [options.base] The folder relative to the cwd. This is used to determine the file names when saving in `gulp.dest()`.
 - @param {boolean} [options.buffer] `true` iff you want to make file.contents `Buffer` type. Default `true`. `false` makes `file.contents` Stream type.
 - @param {boolean} [options.sourcemaps] `true` iff you want files to have sourcemaps enabled.
-- @param {boolean} [options.debugGlobStream] if set true, then the `glob-stream.create` works in debug mode and you can see the additional messages.
-- @param {boolean} [options.passthrough] if set true, then this stream works as a duplex stream and input files are bundled. You can use this in the middle of a pipeline. In case you pass paths as null, then this works as a transform stream.
+- @param {Date|number} [options.since] If you only want files that have been modified since the time specified.
+- @param {boolean} [options.debugGlobStream] If set true, then the `glob-stream.create` works in debug mode and you can see the additional messages.
+- @param {boolean} [options.passthrough] If set true, then this stream works as a duplex stream and input files are bundled. You can use this in the middle of a pipeline. In case you pass paths as null, then this works as a transform stream.
 - The options is directly passed to `browserify` and `glob-stream.create`. Please see their documents for the rest of the available options. ([browserify](https://github.com/substack/node-browserify#browserifyfiles--opts), [glob-stream](https://github.com/gulpjs/glob-stream#options))
 - @return {stream.Readable<Vinyl>}
 

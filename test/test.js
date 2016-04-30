@@ -5,6 +5,7 @@ var through2 = require('through2')
 var vfs = require('vinyl-fs')
 var uglify = require('gulp-uglify')
 var sourcemaps = require('gulp-sourcemaps')
+var concat = require('concat-stream')
 
 var path = require('path')
 
@@ -112,6 +113,23 @@ test('when sourcemaps option is true, the output has sourcemaps', function (t) {
       t.end()
 
     }))
+})
+
+test('since option filters the files by its mtime', function (t) {
+  t.plan(3)
+
+  browserify.src(fixtureRoot + '/foo.js', {since: new Date()}).pipe(concat({object: true}, function (arr) {
+    t.equal(arr.length, 0)
+  }))
+
+  browserify.src(fixtureRoot + '/foo.js', {since: 0}).pipe(concat({object: true}, function (arr) {
+    t.equal(arr.length, 1)
+  }))
+
+  browserify.src(fixtureRoot + '/foo.js', {since: Number(0)}).pipe(concat({object: true}, function (arr) {
+    t.equal(arr.length, 1)
+  }))
+
 })
 
 test('works with uglify', function (t) {
