@@ -116,7 +116,7 @@ test('when sourcemaps option is true, the output has sourcemaps', function (t) {
 })
 
 test('since option filters the files by its mtime', function (t) {
-  t.plan(3)
+  t.plan(4)
 
   browserify.src(fixtureRoot + '/foo.js', {since: new Date()}).pipe(concat({object: true}, function (arr) {
     t.equal(arr.length, 0)
@@ -129,6 +129,10 @@ test('since option filters the files by its mtime', function (t) {
   browserify.src(fixtureRoot + '/foo.js', {since: Number(0)}).pipe(concat({object: true}, function (arr) {
     t.equal(arr.length, 1)
   }))
+
+  t.throws(function () {
+    browserify.src(fixtureRoot + '/foo.js', {since: '2016-11-11'})
+  }, 'string type is invalid for `since` option')
 
 })
 
