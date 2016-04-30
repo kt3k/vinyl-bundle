@@ -17,7 +17,7 @@ module.exports.src = src
  * @param {boolean} [options.buffer] True iff you want to make file.contents `Buffer` type. Default `true`. `false` makes `file.contents` Stream type.
  * @param {boolean} [options.sourcemaps] `true` iff you want files to have sourcemaps enabled.
  * @param {Date|number} [options.since] If you only want files that have been modified since the time specified.
- * @param {string|string[]|etc} [options.transform]
+ * @param {string|string[]|etc} [options.transform] The browserify transforms. See browserify's document for details.
  * @param {boolean} [options.debugGlobStream] True iff you want to debug the glob-stream. default false.
  * @param {boolean} [options.passthrough] if set true, then this stream works as a duplex stream and input files are bundled. You can use this in the middle of a pipeline. In case you pass paths as null, then this works as a transform stream.
  * @return {Readable<Vinyl>} when passthrough: false
