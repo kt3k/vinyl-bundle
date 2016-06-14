@@ -41,7 +41,7 @@
     "codecov.io": "^0.1.6",
     "concat-stream": "^1.5.1",
     "gulp-uglify": "^1.5.3",
-    "nyc": "^6.4.0",
+    "nyc": "^6.6.0",
     "souffle-cli": "^3.1.0",
     "tape": "^4.5.1",
     "through2": "^2.0.1",
