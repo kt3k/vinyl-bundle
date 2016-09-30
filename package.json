@@ -38,7 +38,7 @@
     "vinyl": "^2.0.0"
   },
   "devDependencies": {
-    "codecov.io": "^0.1.6",
+    "codecov.io": "^0.1.7",
     "concat-stream": "^1.5.1",
     "gulp-uglify": "^2.0.0",
     "nyc": "^8.1.0",
