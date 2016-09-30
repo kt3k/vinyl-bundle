@@ -35,7 +35,7 @@
     "is-valid-glob": "^0.3.0",
     "merge-stream": "^1.0.0",
     "object-assign": "^4.0.1",
-    "vinyl": "^1.1.1"
+    "vinyl": "^2.0.0"
   },
   "devDependencies": {
     "codecov.io": "^0.1.6",
